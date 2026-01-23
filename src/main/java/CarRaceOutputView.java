@@ -12,7 +12,7 @@ public class CarRaceOutputView {
             for (int i = 0; i < car.getPosition(); i++) {
                 sb.append("-");
             }
-            System.out.println(sb.toString());
+            System.out.println(sb);
         }
         System.out.println();
     }
