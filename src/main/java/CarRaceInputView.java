@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class CarRaceInputView {
+
     private final Scanner scanner = new Scanner(System.in);
 
     public String readCarCount() {

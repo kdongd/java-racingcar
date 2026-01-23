@@ -1,13 +1,14 @@
 public class Car {
-    private int position;
+
+    private Position position = new Position();
 
     public void move(MoveCondition condition) {
         if (condition.canMove()) {
-            position++;
+            position = position.moveForward();
         }
     }
 
     public int getPosition() {
-        return position;
+        return position.getValue();
     }
 }

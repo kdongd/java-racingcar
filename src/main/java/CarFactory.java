@@ -1,8 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class CarFactory {
-    public static Car[] create(int count) {
-        Car[] cars = new Car[count];
+
+    public static List<Car> create(int count) {
+        List<Car> cars = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            cars[i] = new Car();
+            cars.add(new Car());
         }
         return cars;
     }

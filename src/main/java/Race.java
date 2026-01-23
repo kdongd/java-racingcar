@@ -1,22 +1,20 @@
-public class Race {
-    private final Car[] cars;
-    private final int rounds;
+import java.util.List;
 
-    public Race(Car[] cars, int rounds) {
+public class Race {
+
+    private final List<Car> cars;
+
+    public Race(List<Car> cars) {
         this.cars = cars;
-        this.rounds = rounds;
     }
 
-    public void run(MoveAction moveAction, MoveCondition condition, CarRaceOutputView outputView) {
-        outputView.printStartMessage();
-
-        for (int i = 0; i < rounds; i++) {
-            moveAction.moveAll(cars, condition);
-            outputView.printRoundResult(cars);
+    public void moveOnce(MoveCondition condition) {
+        for (Car car : cars) {
+            car.move(condition);
         }
     }
 
-    public Car[] getCars() {
+    public List<Car> getCars() {
         return cars;
     }
 }
