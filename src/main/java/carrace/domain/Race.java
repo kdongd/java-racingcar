@@ -1,3 +1,5 @@
+package carrace.domain;
+
 import java.util.List;
 
 public class Race {
@@ -14,7 +16,10 @@ public class Race {
         }
     }
 
+    //내부 상태 보호를 위해 자동차 목록을 그대로 반환하지 않고
+    //읽기 전용 리스트(unmodifiableList)를 반환하도록 수정했습니다.
     public List<Car> getCars() {
-        return cars;
+        return List.copyOf(cars);
     }
+
 }

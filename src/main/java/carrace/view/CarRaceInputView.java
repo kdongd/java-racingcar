@@ -1,3 +1,5 @@
+package carrace.view;
+
 import java.util.Scanner;
 
 public class CarRaceInputView {

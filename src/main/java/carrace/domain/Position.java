@@ -1,3 +1,5 @@
+package carrace.domain;
+
 public class Position {
 
     private static final int START = 0;

@@ -1,4 +1,9 @@
+package carrace.view;
+
+import carrace.domain.Car;
+
 import java.util.List;
+
 
 public class CarRaceOutputView {
 
@@ -8,12 +13,9 @@ public class CarRaceOutputView {
 
     public void printResult(List<Car> cars) {
         for (Car car : cars) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < car.getPosition(); i++) {
-                sb.append("-");
-            }
-            System.out.println(sb);
+            System.out.println("-".repeat(car.getPosition()));
         }
         System.out.println();
     }
+
 }

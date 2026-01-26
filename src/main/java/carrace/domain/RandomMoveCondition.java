@@ -1,3 +1,5 @@
+package carrace.domain;
+
 import java.util.Random;
 
 public class RandomMoveCondition implements MoveCondition {
