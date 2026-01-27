@@ -1,62 +1,54 @@
 package carrace.domain.race;
 
-import carrace.domain.Car;
-import carrace.domain.Race;
-import carrace.fixture.AlwaysMoveCondition;
-import carrace.fixture.NeverMoveCondition;
+import carrace.domain.car.Car;
+import carrace.fixture.CarsFixture;
+import carrace.fixture.MoveConditions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 
 class RaceTest {
 
-    @DisplayName("moveOnce 호출 시 모든 자동차가 이동한다")
     @Test
-    void moveOnceMovesAllCars() {
-        List<Car> cars = List.of(new Car(), new Car(), new Car());
+    @DisplayName("Race는 생성시 자동차 목록을 가진다")
+    void race_initialCars_listExists() {
+        List<Car> cars = CarsFixture.threeCars();
         Race race = new Race(cars);
 
-        race.moveOnce(new AlwaysMoveCondition());
+        assertThat(race.getCars()).hasSize(3);
+    }
 
-        for (Car car : cars) {
-            assertEquals(1, car.getPosition());
+    @Test
+    @DisplayName("moveOnce 호출 시 이동하지 않는 조건이면 자동차 위치는 그대로다")
+    void moveOnce_neverMove_positionUnchanged() {
+        List<Car> cars = CarsFixture.threeCars();
+        Race race = new Race(cars);
+
+        race.moveOnce(MoveConditions.neverMove());
+
+        for (Car car : race.getCars()) {
+            assertThat(car.getPosition()).isEqualTo(0);
         }
     }
 
-    @DisplayName("이동 조건이 false면 자동차는 이동하지 않는다")
     @Test
-    void moveOnceDoesNotMoveWhenConditionFalse() {
-        List<Car> cars = List.of(new Car(), new Car());
+    @DisplayName("getCars 반환은 내부 리스트를 보호한다")
+    void getCars_returnsUnmodifiableList() {
+        List<Car> cars = CarsFixture.threeCars();
         Race race = new Race(cars);
 
-        race.moveOnce(new NeverMoveCondition());
+        List<Car> raceCars = race.getCars();
 
-        for (Car car : cars) {
-            assertEquals(0, car.getPosition());
-        }
-    }
-
-    @DisplayName("자동차가 1대여도 정상 동작한다 (경계값)")
-    @Test
-    void raceWithSingleCar() {
-        List<Car> cars = List.of(new Car());
-        Race race = new Race(cars);
-
-        race.moveOnce(new AlwaysMoveCondition());
-
-        assertEquals(1, cars.get(0).getPosition());
-    }
-
-    @DisplayName("자동차가 0대여도 예외 없이 동작한다 (경계값)")
-    @Test
-    void raceWithNoCars() {
-        Race race = new Race(List.of());
-
-        assertDoesNotThrow(() ->
-                race.moveOnce(new AlwaysMoveCondition()));
+        assertThat(raceCars).containsExactlyElementsOf(cars);
+        // 내부 리스트 수정 시도 시 예외 발생 확인
+        assertThatThrownBy(() -> raceCars.add(new Car()))
+                .isInstanceOf(UnsupportedOperationException.class);
     }
 }
+
 

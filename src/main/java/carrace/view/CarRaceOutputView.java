@@ -1,6 +1,6 @@
 package carrace.view;
 
-import carrace.domain.Car;
+import carrace.domain.car.Car;
 
 import java.util.List;
 

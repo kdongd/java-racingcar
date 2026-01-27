@@ -22,4 +22,3 @@ public class StubInputView extends CarRaceInputView {
         return rounds;
     }
 }
-

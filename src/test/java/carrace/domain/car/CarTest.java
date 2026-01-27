@@ -1,30 +1,42 @@
 package carrace.domain.car;
 
-import carrace.domain.Car;
-import carrace.domain.MoveCondition;
-import carrace.fixture.AlwaysMoveCondition;
-import carrace.fixture.NeverMoveCondition;
+import carrace.fixture.MoveConditions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-class CarTest {
+public class CarTest {
 
-    @DisplayName("이동 조건이 true면 위치가 1 증가한다")
     @Test
-    void move_whenConditionTrue() {
+    @DisplayName("새 자동차는 기본 위치가 0")
+    void newCar_defaultPosition_zero() {
         Car car = new Car();
-        car.move((MoveCondition) new AlwaysMoveCondition());
-        assertEquals(1, car.getPosition());
+        assertThat(car.getPosition()).isEqualTo(0);
     }
 
-    @DisplayName("이동 조건이 false면 위치가 증가하지 않는다")
     @Test
-    void move_whenConditionFalse() {
+    @DisplayName("이동 조건 충족 시 항상 위치는 1 증가")
+    void move_alwaysMove_incrementsPosition() {
         Car car = new Car();
-        car.move((MoveCondition) new NeverMoveCondition());
-        assertEquals(0, car.getPosition());
+        car.move(MoveConditions.alwaysMove());
+        assertThat(car.getPosition()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("이동하지 않는 조건에서 자동차 위치는 그대로다")
+    void move_neverMove_positionUnchanged() {
+        Car car = new Car();
+        car.move(MoveConditions.neverMove());
+        assertThat(car.getPosition()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("연속 이동 시 위치가 누적된다")
+    void move_multipleTimes_positionAccumulates() {
+        Car car = new Car();
+        car.move(MoveConditions.alwaysMove());
+        car.move(MoveConditions.alwaysMove());
+        assertThat(car.getPosition()).isEqualTo(2);
     }
 }
-

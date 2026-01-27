@@ -1,4 +1,7 @@
-package carrace.domain;
+package carrace.domain.race;
+
+import carrace.domain.car.Car;
+import carrace.domain.move.MoveCondition;
 
 import java.util.List;
 

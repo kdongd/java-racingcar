@@ -1,7 +1,7 @@
 package carrace.controller;
 
-import carrace.domain.MoveCondition;
-import carrace.domain.Race;
+import carrace.domain.move.MoveCondition;
+import carrace.domain.race.Race;
 import carrace.view.CarRaceOutputView;
 
 public class RaceGame {

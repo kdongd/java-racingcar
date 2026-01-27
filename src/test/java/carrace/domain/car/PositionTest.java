@@ -1,42 +1,36 @@
 package carrace.domain.car;
 
-import carrace.domain.Position;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-class PositionTest {
+public class PositionTest {
 
-    @DisplayName("기본 생성 시 위치는 0이다 (경계값)")
     @Test
+    @DisplayName("기본 생성 시 위치는 0")
     void defaultPositionIsZero() {
         Position position = new Position();
-        assertEquals(0, position.getValue());
+        assertThat(position.getValue()).isEqualTo(0);
     }
 
-    @DisplayName("0으로 생성하면 정상이다 (경계값)")
     @Test
-    void createWithZero() {
-        Position position = new Position(0);
-        assertEquals(0, position.getValue());
-    }
-
-    @DisplayName("음수로 생성하면 예외가 발생한다 (경계값)")
-    @Test
+    @DisplayName("음수로 생성하면 예외 발생")
     void negativeValueThrowsException() {
-        assertThrows(IllegalArgumentException.class,
-                () -> new Position(-1));
+        Position position = new Position();
+        assertThrows(IllegalArgumentException.class,() -> new Position(-1));
     }
 
-    @DisplayName("moveForward는 기존 객체를 변경하지 않는다 (불변성)")
     @Test
+    @DisplayName("MoveForward는 기존 객체를 변경하지 않는다")
     void moveForwardReturnsNewInstance() {
         Position position = new Position(2);
         Position moved = position.moveForward();
 
-        assertEquals(3, moved.getValue());
-        assertEquals(2, position.getValue());
+        assertEquals(3,moved.getValue());
+        assertEquals(2,position.getValue());
     }
-}
 
+
+}

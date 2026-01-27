@@ -1,4 +1,4 @@
-package carrace.domain;
+package carrace.domain.car;
 
 public class Position {
 

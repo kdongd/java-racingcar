@@ -1,6 +1,5 @@
 package carrace.service;
 
-import carrace.controller.InputService;
 import carrace.fixture.StubInputView;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,4 +29,3 @@ class InputServiceTest {
         assertThrows(IllegalArgumentException.class, service::readRounds);
     }
 }
-

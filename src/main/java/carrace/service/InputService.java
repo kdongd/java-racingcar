@@ -1,4 +1,4 @@
-package carrace.controller;
+package carrace.service;
 
 import carrace.view.CarRaceInputView;
 

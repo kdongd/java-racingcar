@@ -1,15 +1,17 @@
 package carrace;
 
 import carrace.controller.RaceGame;
-import carrace.domain.Car;
-import carrace.domain.MoveCondition;
-import carrace.domain.Race;
-import carrace.domain.RandomMoveCondition;
-import carrace.controller.InputService;
+import carrace.domain.car.Car;
+import carrace.domain.car.CarCreator;
+import carrace.domain.move.MoveCondition;
+import carrace.domain.move.RandomMoveCondition;
+import carrace.domain.race.Race;
 import carrace.view.CarRaceInputView;
 import carrace.view.CarRaceOutputView;
+import carrace.service.InputService;
 
 import java.util.List;
+
 
 
 public class Application {
@@ -22,7 +24,7 @@ public class Application {
         int carCount = inputService.readCarCount();
         int rounds = inputService.readRounds();
 
-        List<Car> cars = Car.createCars(carCount);
+        List<Car> cars = CarCreator.create(carCount);
         MoveCondition condition = new RandomMoveCondition();
         Race race = new Race(cars);
 
