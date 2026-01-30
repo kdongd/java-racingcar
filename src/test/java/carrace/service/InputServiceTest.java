@@ -28,4 +28,22 @@ class InputServiceTest {
         InputService service = new InputService(new StubInputView("3", "-1"));
         assertThrows(IllegalArgumentException.class, service::readRounds);
     }
+
+    @Test
+    @DisplayName("자동차 이름이 5글자 초과이면 예외 발생")
+    void carNameTooLongThrows() {
+        StubInputView inputView = new StubInputView("TOOLONG","3");
+        InputService service = new InputService(inputView);
+
+        assertThrows(IllegalArgumentException.class, service::readCarNames);
+    }
+
+    @Test
+    @DisplayName("자동차 이름 공백시 예외 발생")
+    void carNameBlankThrows() {
+        StubInputView inputView = new StubInputView(" , , ", "3");
+        InputService service = new InputService(inputView);
+
+        assertThrows(IllegalArgumentException.class, service::readCarNames);
+    }
 }

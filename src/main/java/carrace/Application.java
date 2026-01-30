@@ -21,14 +21,15 @@ public class Application {
         CarRaceOutputView outputView = new CarRaceOutputView();
         InputService inputService = new InputService(inputView);
 
-        int carCount = inputService.readCarCount();
+        String carName = inputService.readCarNames();
         int rounds = inputService.readRounds();
 
-        List<Car> cars = CarCreator.create(carCount);
+        List<Car> cars = CarCreator.create(carName);
         MoveCondition condition = new RandomMoveCondition();
         Race race = new Race(cars);
 
         RaceGame game = new RaceGame(race, condition, outputView);
         game.play(rounds);
+
     }
 }

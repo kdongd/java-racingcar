@@ -10,6 +10,12 @@ public class InputService {
         this.inputView = inputView;
     }
 
+    public String readCarNames() {
+        String input = inputView.readCarNames();
+        validateCarNames(input);
+        return input;
+    }
+
     public int readCarCount() {
         int value = parseInt(
                 inputView.readCarCount(),
@@ -39,6 +45,16 @@ public class InputService {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(errorMessage);
+        }
+    }
+
+    private void validateCarNames(String input) {
+        String[] names = input.split(",");
+        for (String name : names) {
+            String trimmed = name.trim();
+            if (trimmed.isEmpty() || trimmed.length() > 5) {
+                throw new IllegalArgumentException("자동차 이름은 5자를 초과할 수 없습니다.");
+            }
         }
     }
 }
