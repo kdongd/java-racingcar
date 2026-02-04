@@ -3,7 +3,6 @@ package carrace.domain.car;
 import carrace.fixture.MoveConditions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
@@ -52,6 +51,20 @@ public class CarTest {
     @DisplayName("이름이 5글자 초과면 예외")
     void name_too_long_throws() {
         assertThatThrownBy(() -> new Car("abcdef"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("이름이 null 이면 예외")
+    void name_null_throws() {
+        assertThatThrownBy(() -> new Car(null))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("이름이 공백이면 예외")
+    void name_blank_throws() {
+        assertThatThrownBy(() -> new Car("  "))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 

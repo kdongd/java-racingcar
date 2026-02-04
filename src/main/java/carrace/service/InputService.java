@@ -16,23 +16,8 @@ public class InputService {
         return input;
     }
 
-    public int readCarCount() {
-        int value = parseInt(
-                inputView.readCarCount(),
-                "자동차 대수는 숫자여야 합니다."
-        );
-
-        if (value <= 0) {
-            throw new IllegalArgumentException("자동차는 1대 이상이어야 합니다.");
-        }
-        return value;
-    }
-
     public int readRounds() {
-        int value = parseInt(
-                inputView.readMoveCount(),
-                "시도 횟수는 숫자여야 합니다."
-        );
+        int value = parseInt(inputView.readMoveCount());
 
         if (value <= 0) {
             throw new IllegalArgumentException("시도 횟수는 1 이상이어야 합니다.");
@@ -40,20 +25,19 @@ public class InputService {
         return value;
     }
 
-    private int parseInt(String input, String errorMessage) {
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(errorMessage);
-        }
+    private int parseInt(String input) {
+        return Integer.parseInt(input);
     }
 
     private void validateCarNames(String input) {
+        if (input == null || input.isBlank()) {
+            throw new IllegalArgumentException("자동차 이름을 입력하세요");
+        }
+
         String[] names = input.split(",");
         for (String name : names) {
-            String trimmed = name.trim();
-            if (trimmed.isEmpty() || trimmed.length() > 5) {
-                throw new IllegalArgumentException("자동차 이름은 5자를 초과할 수 없습니다.");
+            if (name.trim().isBlank()) {
+                throw new IllegalArgumentException("자동차 이름은 공백일 수 없습니다.");
             }
         }
     }

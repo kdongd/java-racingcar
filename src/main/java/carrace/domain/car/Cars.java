@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 public class Cars {
 
     private final List<Car> cars;
@@ -29,7 +30,7 @@ public class Cars {
 
     private void validate(List<Car> cars) {
         if (cars.isEmpty()) {
-            throw new IllegalArgumentException("자동차는 최소 1대 이상이어여 합니다.");
+            throw new IllegalArgumentException("자동차는 최소 1대 이상이어야 합니다.");
         }
         validateDuplicateNames(cars);
     }
@@ -48,19 +49,17 @@ public class Cars {
     }
 
     public List<Car> getWinners() {
-        int max = 0;
-        for (Car car : cars) {
-            max = Math.max(max, car.getPosition());
-        }
+        int maxPosition = cars.stream()
+                .mapToInt(Car::getPosition)
+                .max()
+                .orElse(0);
 
-        List<Car> winners = new ArrayList<>();
-        for (Car car : cars) {
-            if (car.getPosition() == max) {
-                winners.add(car);
-            }
-        }
-        return winners;
+        return cars.stream()
+                .filter(car -> car.getPosition() == maxPosition)
+                .toList();
     }
+
+
 
     public List<Car> asList() {
         return List.copyOf(cars);

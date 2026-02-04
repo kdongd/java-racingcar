@@ -14,7 +14,10 @@ public class Car {
     }
 
     private void validateName(String carName) {
-        if (carName == null || carName.length() > MAX_NAME_LENGTH) {
+        if (carName == null || carName.isBlank()) {
+            throw new IllegalArgumentException("자동 이름은 비어있을 수 없습니다.");
+        }
+        if (carName.length() > MAX_NAME_LENGTH) {
             throw new IllegalArgumentException("자동차 이름은 5글자를 초과할 수 없습니다.");
         }
     }
