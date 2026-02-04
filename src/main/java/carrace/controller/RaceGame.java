@@ -23,5 +23,8 @@ public class RaceGame {
             race.moveOnce(condition);
             outputView.printResult(race.getCars());
         }
+
+        outputView.printWinners(race.getWinners());
     }
+
 }
